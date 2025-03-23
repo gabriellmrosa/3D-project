@@ -22,6 +22,8 @@ module.exports = (env, argv) => {
                 directory: path.join(__dirname, 'dist'),
             },
             hot: true,
+            liveReload: true,
+            watchFiles: ['src/**/*', 'index.html'],
             port: 3000,
             compress: true,
             historyApiFallback: true,

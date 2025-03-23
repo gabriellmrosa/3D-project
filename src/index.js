@@ -1,3 +1,5 @@
+import './styles/reset.css';
+import './styles/main.css';
 import App from './js/app';
 
 // Inicializar a aplicação quando o DOM estiver carregado

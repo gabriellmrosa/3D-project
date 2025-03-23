@@ -14,17 +14,21 @@ export function createModel(container, loadingElement) {
 
   // Inicialização
   function init() {
+    // Obtendo as dimensões do contêiner
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
     // Configurando a cena
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf0f0f0);
+    scene.background = new THREE.Color(0xffffff);
 
-    // Configurando a câmera
-    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    // Configurando a câmera com o aspect ratio do contêiner
+    camera = new THREE.PerspectiveCamera(45, containerWidth / containerHeight, 0.1, 1000);
     camera.position.set(0, 0, 20);
 
-    // Configurando o renderizador
+    // Configurando o renderizador com o tamanho do contêiner
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(containerWidth, containerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.outputEncoding = THREE.sRGBEncoding;
     container.appendChild(renderer.domElement);
@@ -192,9 +196,12 @@ export function createModel(container, loadingElement) {
   }
 
   function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    camera.aspect = containerWidth / containerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(containerWidth, containerHeight);
   }
 
   function animate() {
