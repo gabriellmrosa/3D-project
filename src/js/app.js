@@ -1,5 +1,6 @@
 import '../styles/main.css';
 import { createModel } from './components/my_model';
+import { createModal } from './components/modal';
 
 export default class App {
     constructor() {
@@ -7,7 +8,7 @@ export default class App {
         this.container = document.getElementById('canvas-container');
         this.loadingElement = document.getElementById('loading');
 
-        // Iniciar o modelo
+        // Iniciar o modelo principal
         const { scene, camera, renderer, controls, animate } =
             createModel(this.container, this.loadingElement);
 
@@ -20,5 +21,35 @@ export default class App {
 
         // Iniciar loop de animação
         this.animate();
+
+        // Inicializar o modal de seguro
+        this.initSeguroModal();
+    }
+
+    // Método para inicializar o modal de seguro
+    initSeguroModal() {
+        // Criar o modal usando a função factory
+        this.seguroModal = createModal();
+
+        // Encontrar o container do troféu e adicionar evento de clique
+        const containerTrofeu = document.querySelector('.container-trofeu');
+        if (containerTrofeu) {
+            containerTrofeu.style.cursor = 'pointer';
+            containerTrofeu.addEventListener('click', () => {
+                this.seguroModal.open();
+            });
+
+            // Adicionar dica visual para indicar que é clicável (opcional)
+            const clickHint = document.createElement('div');
+            clickHint.textContent = 'Toque para detalhes';
+            clickHint.style.fontSize = '12px';
+            clickHint.style.color = '#7B61FF';
+            clickHint.style.marginTop = '5px';
+            clickHint.style.textAlign = 'center';
+
+            containerTrofeu.appendChild(clickHint);
+        } else {
+            console.warn('Container do troféu não encontrado para adicionar evento de clique');
+        }
     }
 }
