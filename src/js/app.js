@@ -39,15 +39,6 @@ export default class App {
                 this.seguroModal.open();
             });
 
-            // Adicionar dica visual para indicar que é clicável (opcional)
-            const clickHint = document.createElement('div');
-            clickHint.textContent = 'Toque para detalhes';
-            clickHint.style.fontSize = '12px';
-            clickHint.style.color = '#7B61FF';
-            clickHint.style.marginTop = '5px';
-            clickHint.style.textAlign = 'center';
-
-            containerTrofeu.appendChild(clickHint);
         } else {
             console.warn('Container do troféu não encontrado para adicionar evento de clique');
         }
