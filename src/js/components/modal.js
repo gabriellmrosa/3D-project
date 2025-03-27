@@ -84,7 +84,7 @@ export function createModal() {
         // Botão de voltar (seta para a esquerda) no topo
         closeButton = document.createElement('button');
         closeButton.className = 'modal-close';
-        closeButton.innerHTML = '&larr;';
+        closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" fill="#000000"/></svg>`;
         closeButton.style.position = 'absolute';
         closeButton.style.top = '10px';
         closeButton.style.left = '20px';
@@ -96,22 +96,6 @@ export function createModal() {
         closeButton.style.zIndex = '5';
         closeButton.setAttribute('aria-label', 'Fechar');
 
-        // Criar o container para o escudo (ícone de segurança)
-        const shieldContainer = document.createElement('div');
-        shieldContainer.className = 'shield-icon';
-        shieldContainer.style.position = 'absolute';
-        shieldContainer.style.top = '120px';
-        shieldContainer.style.left = '40px';
-        shieldContainer.style.zIndex = '2';
-
-        // SVG inline para o ícone do escudo com verificação
-        shieldContainer.innerHTML = `
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 5L7 10V20C7 28.4 12.6 36.2 20 38C27.4 36.2 33 28.4 33 20V10L20 5Z" stroke="#660099" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M15 20L18.5 23.5L25 17" stroke="#660099" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    `;
-
         // Container para o modelo 3D - CONTÊINER ESPECÍFICO PARA O MODAL
         modelContainer = document.createElement('div');
         modelContainer.id = 'canvas-container-modal'; // ID específico para o modal
@@ -121,7 +105,7 @@ export function createModal() {
         modelContainer.style.minHeight = '250px';
         modelContainer.style.marginBottom = '10px';
         modelContainer.style.position = 'relative';
-        modelContainer.style.border = '1px solid #eee'; // Para visualizar a área
+        modelContainer.style.border = 'none'; // Para visualizar a área
 
         // Elemento para indicar o carregamento do modelo
         loadingElement = document.createElement('div');
@@ -164,12 +148,10 @@ export function createModal() {
 
         // Adicionar todos os elementos ao modal
         modalContent.appendChild(closeButton);
-        modalContent.appendChild(shieldContainer);
         modalContent.appendChild(modelContainer);
         modalContent.appendChild(titleElement);
         modalContent.appendChild(descriptionElement);
         modalContent.appendChild(detailsLink);
-
         modalContainer.appendChild(modalContent);
 
         // Adicionar o modal ao body
