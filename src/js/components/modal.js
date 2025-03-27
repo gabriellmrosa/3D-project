@@ -76,6 +76,7 @@ export function createModal() {
         modalContent.style.display = 'flex';
         modalContent.style.flexDirection = 'column';
         modalContent.style.alignItems = 'center';
+        modalContent.style.justifyContent = 'center';
         modalContent.style.textAlign = 'center';
         modalContent.style.maxWidth = '500px';
         modalContent.style.margin = '0 auto';
@@ -101,10 +102,11 @@ export function createModal() {
         modelContainer.id = 'canvas-container-modal'; // ID específico para o modal
         modelContainer.className = 'model-container-modal';
         modelContainer.style.width = '100%';
-        modelContainer.style.height = '40vh'; // Ajustado para ser responsivo
+        modelContainer.style.height = '35vh'; // Ajustado para ser responsivo
         modelContainer.style.minHeight = '250px';
         modelContainer.style.marginBottom = '10px';
         modelContainer.style.position = 'relative';
+        modelContainer.style.overflow = 'hidden';
         modelContainer.style.border = 'none'; // Para visualizar a área
 
         // Elemento para indicar o carregamento do modelo
@@ -121,7 +123,7 @@ export function createModal() {
         titleElement = document.createElement('h2');
         titleElement.className = 'modal-title';
         titleElement.textContent = 'Seguro Eletrônicos';
-        titleElement.style.margin = '15px 0 5px';
+        titleElement.style.margin = '0px 0 5px';
         titleElement.style.fontSize = '22px';
         titleElement.style.fontWeight = '500';
 
@@ -129,7 +131,7 @@ export function createModal() {
         descriptionElement = document.createElement('p');
         descriptionElement.className = 'modal-description';
         descriptionElement.textContent = 'Smart Watch com seguro desde 12/04/2025';
-        descriptionElement.style.margin = '0 0 20px';
+        descriptionElement.style.margin = '0 0 0px';
         descriptionElement.style.color = '#666';
         descriptionElement.style.fontSize = '14px';
         descriptionElement.style.fontWeight = '400';
