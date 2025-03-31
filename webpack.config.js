@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-// Verificar se o arquivo HTML existe na raiz ou em src
 const htmlTemplatePath = path.resolve(__dirname, 'index.html');
 
 module.exports = (env, argv) => {
@@ -43,33 +42,16 @@ module.exports = (env, argv) => {
                     use: ['style-loader', 'css-loader']
                 },
                 {
-                    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                    test: /\.(png|svg|jpg|jpeg|gif|gltf|bin)$/i,
                     type: 'asset/resource',
                     generator: {
-                        filename: 'assets/images/[hash][ext][query]'
+                        filename: (pathData) => {
+                            const fullPath = pathData.filename;
+                            const match = fullPath.match(/3D_[^/\\]+/);
+                            const folder = match ? match[0] : 'model';
+                            return `assets/models/${folder}/[name][ext]`;
+                        }
                     }
-                },
-                {
-                    test: /\.gltf$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: 'assets/models/3D_smartwatch/[name].[ext]'
-                            }
-                        }
-                    ]
-                },
-                {
-                    test: /\.bin$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: 'assets/models/3D_smartwatch/[name].[ext]'
-                            }
-                        }
-                    ]
                 }
             ]
         },
@@ -88,7 +70,7 @@ module.exports = (env, argv) => {
                         noErrorOnMissing: true
                     },
                     {
-                        from: path.resolve(__dirname, 'src/js/components/3D_*/**/*.{gltf,bin}'),
+                        from: path.resolve(__dirname, 'src/js/components/3D_*/**/*.{gltf,bin,png,jpg,jpeg}'),
                         to({ absoluteFilename }) {
                             const folderName = path.basename(path.dirname(absoluteFilename));
                             const fileName = path.basename(absoluteFilename);

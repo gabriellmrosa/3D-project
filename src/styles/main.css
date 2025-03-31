@@ -35,11 +35,17 @@ body, html {
   }
   
   #canvas-container {
-    width: 150px;
+    width: 100%;
     height: 150px;
     position: relative;
     overflow: hidden;
   }
+  #canvas-popcorn {
+    width: 100%;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+}
   
   .info-panel {
     position: absolute;
@@ -65,10 +71,12 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     border:1px solid #dfdfdf;
-    margin:16px 16px;
     border-radius:16px;
-    padding:16px;
+    overflow: hidden;
+    padding: 16px;
+    width: 100%;
   }
   .container-trofeu p{
     font-size: 14px;
