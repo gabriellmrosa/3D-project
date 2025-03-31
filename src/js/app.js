@@ -1,46 +1,32 @@
 import '../styles/main.css';
-import { createModel } from './components/my_model';
-import { createModal } from './components/modal';
+import { createModel } from './components/3D_smartwatch/my_model';
+import { createModal } from './components/Modal';
+import smartwatchModelPath from './components/3D_smartwatch/scene.gltf';
 
 export default class App {
     constructor() {
-        // Elementos DOM
+        // Inicializar o modelo 3D da tela inicial
         this.container = document.getElementById('canvas-container');
         this.loadingElement = document.getElementById('loading');
 
-        // Iniciar o modelo principal
-        const { scene, camera, renderer, controls, animate } =
-            createModel(this.container, this.loadingElement);
+        const { animate } = createModel(this.container, this.loadingElement, smartwatchModelPath);
+        animate();
 
-        // Armazenar referências
-        this.scene = scene;
-        this.camera = camera;
-        this.renderer = renderer;
-        this.controls = controls;
-        this.animate = animate;
+        // Inicializar o modal com modelo e textos personalizados
+        this.seguroModal = createModal({
+            modelPath: smartwatchModelPath,
+            title: 'Seguro Eletrônicos',
+            subtitle: 'Smartwatch com seguro desde 12/04/2025'
+        });
 
-        // Iniciar loop de animação
-        this.animate();
-
-        // Inicializar o modal de seguro
-        this.initSeguroModal();
-    }
-
-    // Método para inicializar o modal de seguro
-    initSeguroModal() {
-        // Criar o modal usando a função factory
-        this.seguroModal = createModal();
-
-        // Encontrar o container do troféu e adicionar evento de clique
-        const containerTrofeu = document.querySelector('.container-trofeu');
-        if (containerTrofeu) {
-            containerTrofeu.style.cursor = 'pointer';
-            containerTrofeu.addEventListener('click', () => {
-                this.seguroModal.open();
-            });
-
+        // Evento para abrir o modal ao clicar no container do troféu
+        const container = document.querySelector('.container-trofeu');
+        if (container) {
+            container.style.cursor = 'pointer';
+            container.addEventListener('click', () => this.seguroModal.open());
         } else {
-            console.warn('Container do troféu não encontrado para adicionar evento de clique');
+            console.warn('Container do troféu não encontrado!');
         }
+
     }
 }

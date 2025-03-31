@@ -50,11 +50,26 @@ module.exports = (env, argv) => {
                     }
                 },
                 {
-                    test: /\.(glb|gltf|bin)$/,
-                    type: 'asset/resource',
-                    generator: {
-                        filename: 'assets/models/[name][ext]'
-                    }
+                    test: /\.gltf$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: 'assets/models/3D_smartwatch/[name].[ext]'
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.bin$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: 'assets/models/3D_smartwatch/[name].[ext]'
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -73,13 +88,12 @@ module.exports = (env, argv) => {
                         noErrorOnMissing: true
                     },
                     {
-                        from: path.resolve(__dirname, 'src/js/components/*.bin'),
-                        to: 'assets/models/[name][ext]',
-                        noErrorOnMissing: true
-                    },
-                    {
-                        from: path.resolve(__dirname, 'src/js/components/*.gltf'),
-                        to: 'assets/models/[name][ext]',
+                        from: path.resolve(__dirname, 'src/js/components/3D_*/**/*.{gltf,bin}'),
+                        to({ absoluteFilename }) {
+                            const folderName = path.basename(path.dirname(absoluteFilename));
+                            const fileName = path.basename(absoluteFilename);
+                            return `assets/models/${folderName}/${fileName}`;
+                        },
                         noErrorOnMissing: true
                     }
                 ]
